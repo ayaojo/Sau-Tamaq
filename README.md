@@ -1,18 +1,12 @@
-# sau_tamaq_flutter
 
-A new Flutter project.
+## Init Page
 
-## Getting Started
+- DecoratedBox (фон в виде паттернов в png) / Container (padding)
+- Понять как работать с assets
+- flutter_svg: ^2.0.10+1 - https://pub.dev/packages/flutter_svg
+- SizedBox, Column, Spacer, Padding, SafeArea
+- Elevated Button (style => ButtonStyle)
+- Navigator push named
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
 figma-link: https://www.figma.com/design/ceb3xHtu0sT768tivdLwRU/APP-SAU-TAMAQ-USER-VER?node-id=0%3A1&t=aDtDSgHjEd6acRqs-1
