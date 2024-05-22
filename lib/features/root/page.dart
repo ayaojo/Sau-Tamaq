@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unicons/unicons.dart';
 
 class RootPage extends StatelessWidget {
   const RootPage({super.key});
@@ -10,16 +11,21 @@ class RootPage extends StatelessWidget {
           child: Text('Root Page'),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
+          items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(UniconsLine.home_alt),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+              icon: Icon(UniconsLine.bookmark),
+              label: 'Saved',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(UniconsLine.user),
+              label: 'Acount',
+            )
           ],
-        ));
+        )
+      );
   }
 }
