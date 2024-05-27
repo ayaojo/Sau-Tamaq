@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sau_tamaq_flutter/common/choice_chips.dart';
 import 'package:unicons/unicons.dart';
 
 class HomeTab extends StatelessWidget {
@@ -20,20 +21,51 @@ class HomeTab extends StatelessWidget {
             )
           ],
         ),
-        body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(30.0),
-          //color:
-          child: const Text(
-            'Что ты хочешь приготовить сегодня?',
-            maxLines: 2,
-            style: TextStyle(
-              color: Color(0xFF191919),
-              fontWeight: FontWeight.bold,
-              fontSize: 26,
-              overflow: TextOverflow.ellipsis,
-              letterSpacing: -0.04,
-            ),
+        body: const Padding(
+          padding: EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              Text('Что ты хочешь приготовить сегодня?',
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Color(0xFF191919),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    overflow: TextOverflow.ellipsis,
+                    letterSpacing: -0.04,
+                  )),
+              //Spacer(),
+              ChoiceChips(items: [
+                ChipBtn('завтрак', 'assets/icons/breakfast.png'),
+                ChipBtn('обед', 'assets/icons/lunch.png'),
+                ChipBtn('ужин', 'assets/icons/dinner.png'),
+                ChipBtn('десерт', 'assets/icons/dessert.png'),
+                ChipBtn('салат', 'assets/icons/salad.png'),
+                ChipBtn('закуски', 'assets/icons/snacks.png'),
+              ]),
+              //Spacer(),
+              Row(
+                children: [
+                  Text(
+                    'Популярные рецепты',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF191919),
+                      fontSize: 18,
+                    ),
+                  ),
+                  InkWell(
+                    child: Text(
+                      'все',
+                      style: TextStyle(
+                        color: Color(0xFF191919),
+                        fontSize: 16,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
           ),
         ));
   }
