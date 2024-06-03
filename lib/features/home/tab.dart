@@ -72,14 +72,14 @@ class HomeTab extends StatelessWidget {
                 RecipeCard(
                     'Cake', '12.3', 'assets/images/recipe_photo3.png', false),
                 RecipeCard(
-                    'Ramen', '30 min', 'assets/images/recipe_photo2.png', true),
+                    'Ramen', '30', 'assets/images/recipe_photo2.png', true),
                 RecipeCard(
                     'Cake', '12.3', 'assets/images/recipe_photo1.png', true),
-                RecipeCard('Ramen', '30 min', 'assets/images/recipe_photo2.png',
+                RecipeCard('Ramen', '30', 'assets/images/recipe_photo2.png',
                     false),
                 RecipeCard(
                     'Cake', '12.3', 'assets/images/recipe_photo3.png', false),
-                RecipeCard('Ramen', '30 min', 'assets/images/recipe_photo1.png',
+                RecipeCard('Ramen', '30', 'assets/images/recipe_photo1.png',
                     false),
               ],
             ),

@@ -38,7 +38,7 @@ class _RecipeCardsState extends State<RecipeCards> {
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(0.6),
-                        BlendMode.softLight,
+                        BlendMode.darken,
                       ),
                     ),
                     borderRadius: BorderRadius.circular(15),
@@ -50,8 +50,9 @@ class _RecipeCardsState extends State<RecipeCards> {
                       Row(
                         children: [
                           SvgPicture.asset('assets/icons/rec_icon_time.svg'),
+                          const SizedBox(width: 4.0),
                           Text(
-                            item.recipeCardTime,
+                            '${item.recipeCardTime} мин',
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w100,
@@ -59,12 +60,13 @@ class _RecipeCardsState extends State<RecipeCards> {
                           )
                         ],
                       ),
+                      const SizedBox(height: 5.0), 
                       Text(
                         item.recipeCardTitle,
                         style: const TextStyle(
                           color: Color(0xFFFEFEFE),
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 20,
                         ),
                       ),
                     ],
