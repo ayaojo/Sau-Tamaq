@@ -13,6 +13,7 @@ class HomeTab extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFFEFEFE),
+        surfaceTintColor: const Color(0xFFFEFEFE),
         actions: [
           IconButton(
             icon: const Icon(UniconsLine.search),
@@ -22,12 +23,12 @@ class HomeTab extends StatelessWidget {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Что ты хочешь приготовить сегодня?',
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: Text('Что ты хочешь приготовить сегодня?',
                 textAlign: TextAlign.start,
                 maxLines: 2,
                 style: TextStyle(
@@ -37,15 +38,20 @@ class HomeTab extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   letterSpacing: -0.04,
                 )),
-            const ChoiceChips(items: [
-              ChipBtn('завтрак', 'assets/icons/breakfast.png'),
-              ChipBtn('обед', 'assets/icons/lunch.png'),
-              ChipBtn('ужин', 'assets/icons/dinner.png'),
-              ChipBtn('десерт', 'assets/icons/dessert.png'),
-              ChipBtn('салат', 'assets/icons/salad.png'),
-              ChipBtn('закуски', 'assets/icons/snacks.png'),
-            ]),
-            Row(
+          ),
+          const SizedBox(height: 24),
+          const ChoiceChips(items: [
+            ChipBtn('завтрак', 'assets/icons/breakfast.png'),
+            ChipBtn('обед', 'assets/icons/lunch.png'),
+            ChipBtn('ужин', 'assets/icons/dinner.png'),
+            ChipBtn('десерт', 'assets/icons/dessert.png'),
+            ChipBtn('салат', 'assets/icons/salad.png'),
+            ChipBtn('закуски', 'assets/icons/snacks.png'),
+          ]),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 12, 0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
@@ -67,24 +73,18 @@ class HomeTab extends StatelessWidget {
                 ),
               ],
             ),
-            const RecipeCards(
-              items: [
-                RecipeCard(
-                    'Cake', '12.3', 'assets/images/recipe_photo3.png', false),
-                RecipeCard(
-                    'Ramen', '30', 'assets/images/recipe_photo2.png', true),
-                RecipeCard(
-                    'Cake', '12.3', 'assets/images/recipe_photo1.png', true),
-                RecipeCard('Ramen', '30', 'assets/images/recipe_photo2.png',
-                    false),
-                RecipeCard(
-                    'Cake', '12.3', 'assets/images/recipe_photo3.png', false),
-                RecipeCard('Ramen', '30', 'assets/images/recipe_photo1.png',
-                    false),
-              ],
-            ),
-          ],
-        ),
+          ),
+          const RecipeCards(
+            items: [
+              RecipeCard('Cake', '12.3', 'assets/images/recipe_photo3.png', false),
+              RecipeCard('Ramen', '30', 'assets/images/recipe_photo2.png', true),
+              RecipeCard('Cake', '12.3', 'assets/images/recipe_photo1.png', true),
+              RecipeCard('Ramen', '30', 'assets/images/recipe_photo2.png', false),
+              RecipeCard('Cake', '12.3', 'assets/images/recipe_photo3.png', false),
+              RecipeCard('Ramen', '30', 'assets/images/recipe_photo1.png', false),
+            ],
+          ),
+        ],
       ),
     );
   }

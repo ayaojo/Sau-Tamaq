@@ -6,29 +6,26 @@ import 'package:unicons/unicons.dart';
 class RootPage extends StatelessWidget {
   const RootPage({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return const DefaultTabController(
       length: 3,
       child: Scaffold(
           body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               HomeTab(),
               SavedTab(),
               Text('data3'),
-          ]),
-          bottomNavigationBar: _BottomNav()
-        ),
+            ],
+          ),
+          bottomNavigationBar: _BottomNav()),
     );
   }
 }
 
 class _BottomNav extends StatelessWidget {
-  const _BottomNav(
-    );
+  const _BottomNav();
 
   @override
   Widget build(BuildContext context) {
