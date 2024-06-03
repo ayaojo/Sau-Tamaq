@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class RecipeCards extends StatefulWidget {
   final List<RecipeCard> items;
@@ -45,11 +44,11 @@ class _RecipeCardsState extends State<RecipeCards> {
               children: [
                 Row(
                   children: [
-                    SvgPicture.asset('assets/icons/rec_icon_time.svg'),
+                    const Icon(Icons.access_time_outlined, color: Colors.white70, size: 12),
                     const SizedBox(width: 4.0),
                     Text(
                       '${item.recipeCardTime} мин',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w100, fontSize: 10),
+                      style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w400, fontSize: 10),
                     )
                   ],
                 ),
@@ -76,6 +75,13 @@ class RecipeCard {
   final String recipeCardTime;
   final String recipeCardImg;
   final bool isBookmark;
+  final String category;
 
-  const RecipeCard(this.recipeCardTitle, this.recipeCardTime, this.recipeCardImg, this.isBookmark);
+  const RecipeCard(
+    this.recipeCardTitle,
+    this.recipeCardTime,
+    this.recipeCardImg,
+    this.isBookmark,
+    this.category,
+  );
 }

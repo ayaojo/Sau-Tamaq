@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class ChoiceChips extends StatefulWidget {
   final List<ChipBtn> items;
+  final Function(String title) onSelected;
   const ChoiceChips({
     required this.items,
+    required this.onSelected,
     super.key,
   });
 
@@ -22,7 +24,7 @@ class _ChoiceChipsState extends State<ChoiceChips> {
           separatorBuilder: (_, __) => const SizedBox(width: 15),
           itemCount: widget.items.length,
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.only(left: 30.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           itemBuilder: (context, index) {
             final item = widget.items[index];
             return ChoiceChip(
@@ -52,6 +54,7 @@ class _ChoiceChipsState extends State<ChoiceChips> {
                 setState(() {
                   isSelected = index;
                 });
+                widget.onSelected(item.label);
               },
             );
           }),

@@ -3,11 +3,60 @@ import 'package:sau_tamaq_flutter/common/choice_chips.dart';
 import 'package:sau_tamaq_flutter/common/recipe_cards.dart';
 import 'package:unicons/unicons.dart';
 
+var allRecepies = [
+  RecipeCard(
+    'Завтрак 2',
+    '12.3',
+    'assets/images/recipe_photo3.png',
+    false,
+    "завтрак",
+  ),
+  RecipeCard(
+    'Обед 1',
+    '30',
+    'assets/images/recipe_photo2.png',
+    true,
+    "обед",
+  ),
+  RecipeCard(
+    'Ужин 1',
+    '12.3',
+    'assets/images/recipe_photo1.png',
+    true,
+    "ужин",
+  ),
+  RecipeCard(
+    'Десерт 1',
+    '30',
+    'assets/images/recipe_photo2.png',
+    false,
+    "десерт",
+  ),
+  RecipeCard(
+    'Десерт 2',
+    '12.3',
+    'assets/images/recipe_photo3.png',
+    false,
+    'десерт',
+  ),
+  RecipeCard(
+    'Завтрак 1',
+    '30',
+    'assets/images/recipe_photo1.png',
+    false,
+    'завтрак',
+  ),
+];
+
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
+    print('build HomeTab');
+
+    final controller = ValueNotifier('десерт');
+
     return Scaffold(
       backgroundColor: const Color(0xFFFEFEFE),
       appBar: AppBar(
@@ -40,14 +89,19 @@ class HomeTab extends StatelessWidget {
                 )),
           ),
           const SizedBox(height: 24),
-          const ChoiceChips(items: [
-            ChipBtn('завтрак', 'assets/icons/breakfast.png'),
-            ChipBtn('обед', 'assets/icons/lunch.png'),
-            ChipBtn('ужин', 'assets/icons/dinner.png'),
-            ChipBtn('десерт', 'assets/icons/dessert.png'),
-            ChipBtn('салат', 'assets/icons/salad.png'),
-            ChipBtn('закуски', 'assets/icons/snacks.png'),
-          ]),
+          ChoiceChips(
+            items: const [
+              ChipBtn('завтрак', 'assets/icons/breakfast.png'),
+              ChipBtn('обед', 'assets/icons/lunch.png'),
+              ChipBtn('ужин', 'assets/icons/dinner.png'),
+              ChipBtn('десерт', 'assets/icons/dessert.png'),
+              ChipBtn('салат', 'assets/icons/salad.png'),
+              ChipBtn('закуски', 'assets/icons/snacks.png'),
+            ],
+            onSelected: (title) {
+              controller.value = title;
+            },
+          ),
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 0, 12, 0),
@@ -74,15 +128,13 @@ class HomeTab extends StatelessWidget {
               ],
             ),
           ),
-          const RecipeCards(
-            items: [
-              RecipeCard('Cake', '12.3', 'assets/images/recipe_photo3.png', false),
-              RecipeCard('Ramen', '30', 'assets/images/recipe_photo2.png', true),
-              RecipeCard('Cake', '12.3', 'assets/images/recipe_photo1.png', true),
-              RecipeCard('Ramen', '30', 'assets/images/recipe_photo2.png', false),
-              RecipeCard('Cake', '12.3', 'assets/images/recipe_photo3.png', false),
-              RecipeCard('Ramen', '30', 'assets/images/recipe_photo1.png', false),
-            ],
+          ValueListenableBuilder(
+            valueListenable: controller,
+            builder: (context, value, child) {
+              return RecipeCards(
+                items: allRecepies.where((element) => element.category == value).toList(),
+              );
+            },
           ),
         ],
       ),
