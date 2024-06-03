@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 class RecipeCards extends StatefulWidget {
   final List<RecipeCard> items;
+  final ValueNotifier<List<RecipeCard>> savedRecipes;
+
   const RecipeCards({
     super.key,
     required this.items,
+    required this.savedRecipes,
   });
 
   @override
@@ -12,8 +15,6 @@ class RecipeCards extends StatefulWidget {
 }
 
 class _RecipeCardsState extends State<RecipeCards> {
-  bool isBookmark = false;
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -38,29 +39,72 @@ class _RecipeCardsState extends State<RecipeCards> {
               ),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.access_time_outlined, color: Colors.white70, size: 12),
-                    const SizedBox(width: 4.0),
-                    Text(
-                      '${item.recipeCardTime} мин',
-                      style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w400, fontSize: 10),
-                    )
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.access_time_outlined,
+                                color: Colors.white70, size: 12),
+                            const SizedBox(width: 4.0),
+                            Text(
+                              '${item.recipeCardTime} мин',
+                              style: const TextStyle(
+                                  color: Colors.white70,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 10),
+                            )
+                          ],
+                        ),
+                        const SizedBox(height: 5.0),
+                        Text(
+                          item.recipeCardTitle,
+                          style: const TextStyle(
+                            color: Color(0xFFFEFEFE),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                const SizedBox(height: 5.0),
-                Text(
-                  item.recipeCardTitle,
-                  style: const TextStyle(
-                    color: Color(0xFFFEFEFE),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        item.isBookmark
+                            ? Icons.bookmark
+                            : Icons.bookmark_border,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          item.isBookmark = !item.isBookmark;
+                          if (item.isBookmark) {
+                            widget.savedRecipes.value.add(item);
+                          } else {
+                            widget.savedRecipes.value.remove(
+                                item); // Удаление из списка сохраненных рецептов
+                          }
+                          // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+                          widget.savedRecipes.notifyListeners();
+                        });
+                      },
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           );
@@ -74,10 +118,10 @@ class RecipeCard {
   final String recipeCardTitle;
   final String recipeCardTime;
   final String recipeCardImg;
-  final bool isBookmark;
+  bool isBookmark;
   final String category;
 
-  const RecipeCard(
+  RecipeCard(
     this.recipeCardTitle,
     this.recipeCardTime,
     this.recipeCardImg,

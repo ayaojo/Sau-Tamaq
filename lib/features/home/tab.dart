@@ -55,7 +55,8 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     print('build HomeTab');
 
-    final controller = ValueNotifier('десерт');
+    final savedRecipes = ValueNotifier<List<RecipeCard>>([]);
+    final controller = ValueNotifier('завтрак');
 
     return Scaffold(
       backgroundColor: const Color(0xFFFEFEFE),
@@ -132,7 +133,10 @@ class HomeTab extends StatelessWidget {
             valueListenable: controller,
             builder: (context, value, child) {
               return RecipeCards(
-                items: allRecepies.where((element) => element.category == value).toList(),
+                items: allRecepies
+                    .where((element) => element.category == value)
+                    .toList(),
+                savedRecipes: savedRecipes,
               );
             },
           ),
