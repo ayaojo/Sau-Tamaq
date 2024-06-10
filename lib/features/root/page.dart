@@ -10,29 +10,43 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final savedRecipes = ValueNotifier<List<RecipeCard>>([]);
+    final savedRecipes = ValueNotifier(<RecipeCard>[]);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          body: TabBarView(physics: const NeverScrollableScrollPhysics(), children: [
-            const HomeTab(),
-            SavedTab(savedRecipeList: SavedRecipeList(savedRecipes: savedRecipes)),
-            const Text('data3'),
-          ]),
-          bottomNavigationBar: const _BottomNav()),
+        body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              const HomeTab(),
+              SavedTab(
+                  savedRecipeList: SavedRecipeList(savedRecipes: savedRecipes)),
+              const Text('data3'),
+            ]),
+        bottomNavigationBar: const _BottomNav(),
+      ),
     );
   }
 }
 
-class _BottomNav extends StatelessWidget {
+class _BottomNav extends StatefulWidget {
   const _BottomNav();
 
   @override
+  State<_BottomNav> createState() => _BottomNavState();
+}
+
+class _BottomNavState extends State<_BottomNav> {
+  int currentIndex = 0;
+  @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      currentIndex: currentIndex,
       backgroundColor: const Color(0xFF1D3557),
       onTap: (value) {
         DefaultTabController.of(context).animateTo(value);
+        setState(() {
+          currentIndex = value;
+        });
       },
       items: const [
         BottomNavigationBarItem(
@@ -41,6 +55,7 @@ class _BottomNav extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(UniconsLine.bookmark),
+          activeIcon: Icon(UniconsLine.),
           label: 'Saved',
         ),
         BottomNavigationBarItem(

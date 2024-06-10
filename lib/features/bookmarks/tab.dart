@@ -13,6 +13,7 @@ class SavedTab extends StatelessWidget {
   Widget build(BuildContext context) {
     print('build SavedTab');
     return Scaffold(
+      backgroundColor: const Color(0xFFFEFEFE),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFFEFEFE),
