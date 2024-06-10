@@ -60,7 +60,6 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build HomeTab');
 
     final savedRecipes = ValueNotifier(<RecipeCard>[]);
     final controller = ValueNotifier('завтрак');

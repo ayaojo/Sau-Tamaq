@@ -54,13 +54,13 @@ class _BottomNavState extends State<_BottomNav> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(UniconsLine.bookmark),
-          activeIcon: Icon(UniconsLine.),
+          icon: Icon(Icons.bookmark_outline),
+          activeIcon: Icon(Icons.bookmark),
           label: 'Saved',
         ),
         BottomNavigationBarItem(
           icon: Icon(UniconsLine.user),
-          label: 'Acount',
+          label: 'Account',
         )
       ],
       selectedItemColor: Colors.white,
