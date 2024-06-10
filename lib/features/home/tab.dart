@@ -5,14 +5,14 @@ import 'package:unicons/unicons.dart';
 
 var allRecepies = [
   RecipeCard(
-    'Завтрак 2',
+    'Завтрак 1',
     '12.3',
     'assets/images/recipe_photo3.png',
     false,
     "завтрак",
   ),
     RecipeCard(
-    'Завтрак 3',
+    'Завтрак 2',
     '12.3',
     'assets/images/recipe_photo3.png',
     false,
@@ -47,7 +47,7 @@ var allRecepies = [
     'десерт',
   ),
   RecipeCard(
-    'Завтрак 1',
+    'Завтрак 3',
     '30',
     'assets/images/recipe_photo1.png',
     false,
