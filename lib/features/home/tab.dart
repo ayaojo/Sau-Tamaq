@@ -8,7 +8,7 @@ var allRecepies = [
     'Завтрак 1',
     '12.3',
     'assets/images/recipe_photo3.png',
-    false,
+    true,
     "завтрак",
   ),
     RecipeCard(
@@ -36,7 +36,7 @@ var allRecepies = [
     'Десерт 1',
     '30',
     'assets/images/recipe_photo2.png',
-    false,
+    true,
     "десерт",
   ),
   RecipeCard(
@@ -50,7 +50,7 @@ var allRecepies = [
     'Завтрак 3',
     '30',
     'assets/images/recipe_photo1.png',
-    false,
+    true,
     'завтрак',
   ),
 ];

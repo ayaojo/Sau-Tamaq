@@ -9,9 +9,14 @@ class SavedRecipeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RecipeCards(
-        items:
-            allRecepies.where((element) => element.isBookmark == true).toList(),
-        savedRecipes: savedRecipes);
+    return Column(
+      children: [
+        RecipeCards(
+            items: allRecepies
+                .where((element) => element.isBookmark == true)
+                .toList(),
+            savedRecipes: savedRecipes),
+      ],
+    );
   }
 }
