@@ -95,11 +95,8 @@ class _RecipeCardsState extends State<RecipeCards> {
                           if (item.isBookmark) {
                             widget.savedRecipes.value.add(item);
                           } else {
-                            widget.savedRecipes.value.remove(
-                                item); // Удаление из списка сохраненных рецептов
+                            widget.savedRecipes.value.remove(item); 
                           }
-                          // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-                          widget.savedRecipes.notifyListeners();
                         });
                       },
                     ),

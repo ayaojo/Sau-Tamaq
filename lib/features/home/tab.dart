@@ -11,6 +11,13 @@ var allRecepies = [
     false,
     "завтрак",
   ),
+    RecipeCard(
+    'Завтрак 3',
+    '12.3',
+    'assets/images/recipe_photo3.png',
+    false,
+    "завтрак",
+  ),
   RecipeCard(
     'Обед 1',
     '30',
@@ -55,7 +62,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     print('build HomeTab');
 
-    final savedRecipes = ValueNotifier<List<RecipeCard>>([]);
+    final savedRecipes = ValueNotifier(<RecipeCard>[]);
     final controller = ValueNotifier('завтрак');
 
     return Scaffold(
