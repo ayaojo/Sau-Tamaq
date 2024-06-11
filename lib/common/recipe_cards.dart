@@ -30,7 +30,14 @@ class _RecipeCardsState extends State<RecipeCards> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RecipeInfo(recipeCardTitle: item.recipeCardTitle),
+                  builder: (context) => RecipeInfo(
+                    recipeCardTitle: item.recipeCardTitle,
+                    recipeCardImg: item.recipeCardImg,
+                    recipeCardTime: item.recipeCardTime,
+                    recipeLevel: item.recipeLevel,
+                    recipeCalories: item.recipeCalories,
+                    recipeIngredients: item.recipeIngredients,
+                  ),
                 ),
               );
             },
@@ -128,6 +135,10 @@ class RecipeCard {
   final String recipeCardImg;
   bool isBookmark;
   final String category;
+  final String recipeLevel;
+  final String recipeCalories;
+  final List<String> recipeIngredients;
+
 
   RecipeCard(
     this.recipeCardTitle,
@@ -135,5 +146,7 @@ class RecipeCard {
     this.recipeCardImg,
     this.isBookmark,
     this.category,
+    this.recipeLevel,
+    this.recipeCalories, this.recipeIngredients,
   );
 }

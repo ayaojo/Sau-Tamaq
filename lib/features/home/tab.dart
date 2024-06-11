@@ -4,55 +4,20 @@ import 'package:sau_tamaq_flutter/common/recipe_cards.dart';
 import 'package:unicons/unicons.dart';
 
 var allRecepies = [
-  RecipeCard(
-    'Завтрак 1',
-    '12.3',
-    'assets/images/recipe_photo3.png',
-    true,
-    "завтрак",
-  ),
-    RecipeCard(
-    'Завтрак 2',
-    '12.3',
-    'assets/images/recipe_photo3.png',
-    false,
-    "завтрак",
-  ),
-  RecipeCard(
-    'Обед 1',
-    '30',
-    'assets/images/recipe_photo2.png',
-    true,
-    "обед",
-  ),
-  RecipeCard(
-    'Ужин 1',
-    '12.3',
-    'assets/images/recipe_photo1.png',
-    true,
-    "ужин",
-  ),
-  RecipeCard(
-    'Десерт 1',
-    '30',
-    'assets/images/recipe_photo2.png',
-    true,
-    "десерт",
-  ),
-  RecipeCard(
-    'Десерт 2',
-    '12.3',
-    'assets/images/recipe_photo3.png',
-    false,
-    'десерт',
-  ),
-  RecipeCard(
-    'Завтрак 3',
-    '30',
-    'assets/images/recipe_photo1.png',
-    true,
-    'завтрак',
-  ),
+  RecipeCard('Завтрак 1', '12', 'assets/images/recipe_photo3.png', true,
+      "завтрак", 'Easy', '1200', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'], ),
+  RecipeCard('Завтрак 2', '15', 'assets/images/recipe_photo3.png', false,
+      "завтрак", 'Hard', '1200', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'],),
+  RecipeCard('Обед 1', '30', 'assets/images/recipe_photo2.png', true, "обед",
+      'Middle', '60', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'],),
+  RecipeCard('Ужин 1', '2', 'assets/images/recipe_photo1.png', true, "ужин",
+      'Easy', '80', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'],),
+  RecipeCard('Десерт 1', '30', 'assets/images/recipe_photo2.png', true,
+      "десерт", 'Easy', '120', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'],),
+  RecipeCard('Десерт 2', '15', 'assets/images/recipe_photo3.png', false,
+      'десерт', 'Hard', '1200', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'],),
+  RecipeCard('Завтрак 3', '45', 'assets/images/recipe_photo1.png', true,
+      'завтрак', 'Middle', '25', ['Яйцо', 'Майонез', 'Сок лимона', 'Горчица', 'Соль', 'Перец', 'Green onion', 'Bread', 'Salad'],),
 ];
 
 class HomeTab extends StatelessWidget {
@@ -60,7 +25,6 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final savedRecipes = ValueNotifier(<RecipeCard>[]);
     final controller = ValueNotifier('завтрак');
 
