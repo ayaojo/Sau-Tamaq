@@ -37,6 +37,7 @@ class _RecipeCardsState extends State<RecipeCards> {
                     recipeLevel: item.recipeLevel,
                     recipeCalories: item.recipeCalories,
                     recipeIngredients: item.recipeIngredients,
+                    recipeCookSteps: item.recipeCookSteps,
                   ),
                 ),
               );
@@ -138,7 +139,7 @@ class RecipeCard {
   final String recipeLevel;
   final String recipeCalories;
   final List<String> recipeIngredients;
-
+  final List<String> recipeCookSteps;
 
   RecipeCard(
     this.recipeCardTitle,
@@ -147,6 +148,8 @@ class RecipeCard {
     this.isBookmark,
     this.category,
     this.recipeLevel,
-    this.recipeCalories, this.recipeIngredients,
+    this.recipeCalories,
+    this.recipeIngredients,
+    this.recipeCookSteps,
   );
 }

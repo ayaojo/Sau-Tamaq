@@ -7,6 +7,7 @@ class RecipeInfo extends StatelessWidget {
   final String recipeLevel;
   final String recipeCalories;
   final List<String> recipeIngredients;
+  final List<String> recipeCookSteps;
 
   const RecipeInfo(
       {super.key,
@@ -15,13 +16,16 @@ class RecipeInfo extends StatelessWidget {
       required this.recipeCardImg,
       required this.recipeLevel,
       required this.recipeCalories,
-      required this.recipeIngredients});
+      required this.recipeIngredients,
+      required this.recipeCookSteps});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Рецепт'),
+        backgroundColor: const Color(0xFFFEFEFE),
+        surfaceTintColor: const Color(0xFFFEFEFE),
       ),
       body: Column(
         children: [
@@ -58,9 +62,7 @@ class RecipeInfo extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 15.0,
-          ),
+          const SizedBox(height: 15.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Container(
@@ -92,51 +94,97 @@ class RecipeInfo extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 35.0,
-          ),
+          const SizedBox(height: 35.0),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Ингредиенты',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                  ),
-                ),
-                DropdownMenu(
-                  label: Text('Порция'),
-                  width: 140.0,
-                  dropdownMenuEntries: [
-                    DropdownMenuEntry(value: 1, label: '1'),
-                    DropdownMenuEntry(value: 2, label: '2'),
-                    DropdownMenuEntry(value: 3, label: '3'),
-                    DropdownMenuEntry(value: 4, label: '4'),
-                    DropdownMenuEntry(value: 5, label: '5'),
-                  ],
-                ),
+            child: const DropdownMenu(
+              label: Text('Порция'),
+              width: 140.0,
+              dropdownMenuEntries: [
+                DropdownMenuEntry(value: 1, label: '1'),
+                DropdownMenuEntry(value: 2, label: '2'),
+                DropdownMenuEntry(value: 3, label: '3'),
+                DropdownMenuEntry(value: 4, label: '4'),
+                DropdownMenuEntry(value: 5, label: '5'),
               ],
             ),
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: recipeIngredients.length,
+              itemCount: recipeIngredients.length + recipeCookSteps.length + 2,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Text(
-                    recipeIngredients[index],
-                    style: const TextStyle(
-                      fontSize: 16,
+                if (index == 0) {
+                  return const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.0, vertical: 16.0),
+                        child: Text(
+                          'Ингредиенты',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (index < recipeIngredients.length + 1) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0, vertical: 4.0),
+                    child: Text(
+                      recipeIngredients[index - 1],
+                      style: const TextStyle(
+                        fontSize: 14,
+                        backgroundColor: Color(0xffD2E7FF),
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else if (index == recipeIngredients.length + 1) {
+                  return const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.0, vertical: 16.0),
+                        child: Text(
+                          'Инструкции',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  final instructionIndex = index - recipeIngredients.length - 2;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30.0, vertical: 6.0),
+                    child: Text(
+                      recipeCookSteps[instructionIndex],
+                      style: const TextStyle(
+                        fontSize: 14,
+                        backgroundColor: Color(0xffD2E7FF),
+                      ),
+                    ),
+                  );
+                }
               },
             ),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              await Navigator.pushReplacementNamed(context, '/ingredients');
+            },
+            child: const Text(
+              'Начнём готовить',
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          )
         ],
       ),
     );
