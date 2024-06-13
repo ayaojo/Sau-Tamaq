@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RecipeIngredientsPage extends StatelessWidget {
-  const RecipeIngredientsPage({super.key});
+  final Map<String, String> recipeIngredients;
+
+  const RecipeIngredientsPage({super.key, required this.recipeIngredients});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,16 @@ class RecipeIngredientsPage extends StatelessWidget {
             const Text(
                 'Пожалуйста, подготовьте ингредиенты перед началом приготовления',
                 style: TextStyle(fontSize: 16)),
+            ListView.builder(
+              itemCount: recipeIngredients.length,
+              itemBuilder: (context, index) {
+                var ingredient = recipeIngredients.entries.elementAt(index);
+                return RecipeIngredientList(
+                  recipeIngredientName: ingredient.key,
+                  recipeIngredientQuantity: ingredient.value,
+                );
+              },
+            ),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -40,23 +52,47 @@ class RecipeIngredientsPage extends StatelessWidget {
   }
 }
 
-class CheckBox extends StatefulWidget {
-  const CheckBox({
+class RecipeIngredientList extends StatefulWidget {
+  final String recipeIngredientName;
+  final String recipeIngredientQuantity;
+
+  const RecipeIngredientList({
     super.key,
+    required this.recipeIngredientName,
+    required this.recipeIngredientQuantity,
   });
 
   @override
-  State<StatefulWidget> createState() => _CheckBoxState();
+  State<StatefulWidget> createState() => _RecipeIngredientListState();
 }
 
-class _CheckBoxState extends State<CheckBox> {
+class _RecipeIngredientListState extends State<RecipeIngredientList> {
+  bool isChecked = false;
+
+  void _toggleCheckBox() {
+    setState(() {
+      isChecked = !isChecked;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
-        color: Colors.amber,
-        border: Border.all(color: Colors.black),
+    return GestureDetector(
+      onTap: _toggleCheckBox,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: isChecked ? Colors.amber : const Color(0xffD2E7FF),
+        ),
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          widget.recipeIngredientName,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+            color: isChecked ? Colors.white : Colors.black,
+          ),
+        ),
       ),
     );
   }

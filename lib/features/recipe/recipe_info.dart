@@ -224,7 +224,7 @@ class RecipeStepList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14.0),
+        borderRadius: BorderRadius.circular(10.0),
         color: const Color(0xffD2E7FF),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
