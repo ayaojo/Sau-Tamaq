@@ -6,8 +6,8 @@ class RecipeInfo extends StatelessWidget {
   final String recipeCardImg;
   final String recipeLevel;
   final String recipeCalories;
-  final List<String> recipeIngredients;
-  final List<String> recipeCookSteps;
+  final Map<String, String> recipeIngredients;
+  final Map<String, String> recipeCookSteps;
 
   const RecipeInfo(
       {super.key,
@@ -29,39 +29,6 @@ class RecipeInfo extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Container(
-              padding: const EdgeInsets.all(15.0),
-              width: double.infinity,
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(recipeCardImg),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.6),
-                    BlendMode.darken,
-                  ),
-                ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    recipeCardTitle,
-                    style: const TextStyle(
-                      color: Color(0xFFFEFEFE),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           const SizedBox(height: 15.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -110,68 +77,51 @@ class RecipeInfo extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: recipeIngredients.length + recipeCookSteps.length + 2,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 16.0),
-                        child: Text(
-                          'Ингредиенты',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                } else if (index < recipeIngredients.length + 1) {
+            child: ListView(
+              children: [
+                const Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
+                  child: Text(
+                    'Ингредиенты',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                ...recipeIngredients.entries.map((ingredient) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 4.0),
-                    child: Text(
-                      recipeIngredients[index - 1],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        backgroundColor: Color(0xffD2E7FF),
-                      ),
+                    child: RecipeIngredientList(
+                      recipeIngredientName: ingredient.key,
+                      recipeIngredientQuantity: ingredient.value,
                     ),
                   );
-                } else if (index == recipeIngredients.length + 1) {
-                  return const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 16.0),
-                        child: Text(
-                          'Инструкции',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  final instructionIndex = index - recipeIngredients.length - 2;
+                }),
+                const Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
+                  child: Text(
+                    'Инструкции',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                ...recipeCookSteps.entries.map((step) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 6.0),
-                    child: Text(
-                      recipeCookSteps[instructionIndex],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        backgroundColor: Color(0xffD2E7FF),
-                      ),
+                    child: RecipeStepList(
+                      recipeStepNum: step.key,
+                      recipeStepDescription: step.value,
                     ),
                   );
-                }
-              },
+                }),
+              ],
             ),
           ),
           ElevatedButton(
@@ -225,6 +175,83 @@ class RecipeInfoWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class RecipeIngredientList extends StatelessWidget {
+  final String recipeIngredientName;
+  final String recipeIngredientQuantity;
+
+  const RecipeIngredientList(
+      {super.key,
+      required this.recipeIngredientName,
+      required this.recipeIngredientQuantity});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: const Color(0xffD2E7FF),
+      ),
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(recipeIngredientName,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          Text(recipeIngredientQuantity,
+              style: const TextStyle(fontSize: 12, color: Color(0xff7E7E7E))),
+        ],
+      ),
+    );
+  }
+}
+
+class RecipeStepList extends StatelessWidget {
+  final String recipeStepNum;
+  final String recipeStepDescription;
+
+  const RecipeStepList({
+    super.key,
+    required this.recipeStepNum,
+    required this.recipeStepDescription,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14.0),
+        color: const Color(0xffD2E7FF),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+      child: Row(
+        children: [
+          Text(
+            recipeStepNum,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(
+            width: 12,
+          ),
+          Expanded(
+            child: Text(
+              recipeStepDescription,
+              style: const TextStyle(
+                fontSize: 14,
+              ),
+              maxLines: 15,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

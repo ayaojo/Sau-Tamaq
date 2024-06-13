@@ -138,8 +138,8 @@ class RecipeCard {
   final String category;
   final String recipeLevel;
   final String recipeCalories;
-  final List<String> recipeIngredients;
-  final List<String> recipeCookSteps;
+  final Map<String, String> recipeIngredients;
+  final Map<String, String> recipeCookSteps;
 
   RecipeCard(
     this.recipeCardTitle,
