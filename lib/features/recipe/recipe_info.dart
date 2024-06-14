@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
+import 'package:sau_tamaq_flutter/features/recipe/recipe_ingredients_page.dart';
 
 class RecipeInfo extends StatelessWidget {
   final String recipeCardTitle;
@@ -140,8 +141,16 @@ class RecipeInfo extends StatelessWidget {
           SafeArea(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(
-                    context, '/ingredients');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RecipeIngredientsPage(
+                      recipeCardTitle: recipeCardTitle,
+                      recipeCardImg: recipeCardImg,
+                      recipeIngredients: recipeIngredients, recipeCookSteps: recipeCookSteps,
+                    ),
+                  ),
+                );
               },
               child: const Text(
                 'Начнём готовить',

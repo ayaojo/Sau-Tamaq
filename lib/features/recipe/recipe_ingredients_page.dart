@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
+import 'package:sau_tamaq_flutter/features/recipe/recipe_info.dart';
+import 'package:sau_tamaq_flutter/features/recipe/recipe_steps_page.dart';
 
 class RecipeIngredientsPage extends StatelessWidget {
+  final String recipeCardTitle;
+  final String recipeCardImg;
+  final Map<String, String> recipeIngredients;
+    final Map<String, String> recipeCookSteps;
+
 
   const RecipeIngredientsPage({
     super.key,
+    required this.recipeCardTitle,
+    required this.recipeCardImg,
+    required this.recipeIngredients,
+    required this.recipeCookSteps,
   });
 
   @override
@@ -24,12 +35,9 @@ class RecipeIngredientsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: RecipeImageBlock(
-                recipeImage: 'recipeCardImg',
-                recipeName: 'recipeCardTitle',
-              ),
+            RecipeImageBlock(
+              recipeImage: recipeCardImg,
+              recipeName: recipeCardTitle,
             ),
             const Text(
               'Пожалуйста, подготовьте ингредиенты перед началом приготовления',
@@ -38,14 +46,35 @@ class RecipeIngredientsPage extends StatelessWidget {
             const SizedBox(height: 10),
 
             // Список ингредиентов
-            
+            Expanded(
+              child: ListView(
+                children: recipeIngredients.entries.map((entry) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: RecipeIngredientList(
+                      recipeIngredientName: entry.key,
+                      recipeIngredientQuantity: entry.value,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
             // Конец списка ингредиентов
 
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/steps');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RecipeStepsPage(
+                        recipeCardTitle: recipeCardTitle,
+                        recipeCardImg: recipeCardImg,
+                        recipeCookSteps: recipeCookSteps,
+                      ),
+                    ),
+                  );
                 },
                 child: const Text(
                   'Дальше',
