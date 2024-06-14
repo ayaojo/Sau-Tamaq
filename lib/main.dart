@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
         '/': (context) => const InitPage(),
         '/root': (context) => const RootPage(),
         '/ingredients': (context) => const RecipeIngredientsPage(),
+  
         '/steps': (context) => const RecipeStepsPage(),
         '/end': (context) => const BonAppetitPage(),
       },
-      
     );
   }
 }

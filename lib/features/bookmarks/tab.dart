@@ -17,13 +17,16 @@ class SavedTab extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFFEFEFE),
         surfaceTintColor: const Color(0xFFFEFEFE),
-        title: const Text('Сохранённые рецепты',
-            style: TextStyle(
-              color: Color(0xFF191919),
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-              overflow: TextOverflow.ellipsis,
-            )),
+        centerTitle: true,
+        title: const Text(
+          'Сохранённые рецепты',
+          style: TextStyle(
+            color: Color(0xFF191919),
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ),
       body: savedRecipeList,
     );

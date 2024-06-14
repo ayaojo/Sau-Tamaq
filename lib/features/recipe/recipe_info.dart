@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
 
 class RecipeInfo extends StatelessWidget {
   final String recipeCardTitle;
@@ -9,26 +10,38 @@ class RecipeInfo extends StatelessWidget {
   final Map<String, String> recipeIngredients;
   final Map<String, String> recipeCookSteps;
 
-  const RecipeInfo(
-      {super.key,
-      required this.recipeCardTitle,
-      required this.recipeCardTime,
-      required this.recipeCardImg,
-      required this.recipeLevel,
-      required this.recipeCalories,
-      required this.recipeIngredients,
-      required this.recipeCookSteps});
+  const RecipeInfo({
+    super.key,
+    required this.recipeCardTitle,
+    required this.recipeCardTime,
+    required this.recipeCardImg,
+    required this.recipeLevel,
+    required this.recipeCalories,
+    required this.recipeIngredients,
+    required this.recipeCookSteps,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         title: const Text('Рецепт'),
         backgroundColor: const Color(0xFFFEFEFE),
         surfaceTintColor: const Color(0xFFFEFEFE),
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: RecipeImageBlock(
+              recipeImage: recipeCardImg,
+              recipeName: recipeCardTitle,
+            ),
+          ),
           const SizedBox(height: 15.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -124,17 +137,20 @@ class RecipeInfo extends StatelessWidget {
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              await Navigator.pushReplacementNamed(context, '/ingredients');
-            },
-            child: const Text(
-              'Начнём готовить',
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+          SafeArea(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(
+                    context, '/ingredients');
+              },
+              child: const Text(
+                'Начнём готовить',
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
