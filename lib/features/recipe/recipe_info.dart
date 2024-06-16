@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sau_tamaq_flutter/common/custom_checkbox.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
 import 'package:sau_tamaq_flutter/features/recipe/recipe_ingredients_page.dart';
 
@@ -147,7 +148,8 @@ class RecipeInfo extends StatelessWidget {
                     builder: (context) => RecipeIngredientsPage(
                       recipeCardTitle: recipeCardTitle,
                       recipeCardImg: recipeCardImg,
-                      recipeIngredients: recipeIngredients, recipeCookSteps: recipeCookSteps,
+                      recipeIngredients: recipeIngredients,
+                      recipeCookSteps: recipeCookSteps,
                     ),
                   ),
                 );
@@ -207,11 +209,14 @@ class RecipeInfoWidget extends StatelessWidget {
 class RecipeIngredientList extends StatelessWidget {
   final String recipeIngredientName;
   final String recipeIngredientQuantity;
+  final bool showCheckbox;
 
-  const RecipeIngredientList(
-      {super.key,
-      required this.recipeIngredientName,
-      required this.recipeIngredientQuantity});
+  const RecipeIngredientList({
+    super.key,
+    required this.recipeIngredientName,
+    required this.recipeIngredientQuantity,
+    this.showCheckbox = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +234,7 @@ class RecipeIngredientList extends StatelessWidget {
                   const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
           Text(recipeIngredientQuantity,
               style: const TextStyle(fontSize: 12, color: Color(0xff7E7E7E))),
+          if (showCheckbox) const CustomCheckbox(),
         ],
       ),
     );
@@ -238,11 +244,13 @@ class RecipeIngredientList extends StatelessWidget {
 class RecipeStepList extends StatelessWidget {
   final String recipeStepNum;
   final String recipeStepDescription;
+  final bool showCheckbox;
 
   const RecipeStepList({
     super.key,
     required this.recipeStepNum,
     required this.recipeStepDescription,
+    this.showCheckbox = false,
   });
 
   @override
@@ -275,6 +283,7 @@ class RecipeStepList extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
+          if (showCheckbox) const CustomCheckbox(),
         ],
       ),
     );

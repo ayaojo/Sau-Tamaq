@@ -7,8 +7,7 @@ class RecipeIngredientsPage extends StatelessWidget {
   final String recipeCardTitle;
   final String recipeCardImg;
   final Map<String, String> recipeIngredients;
-    final Map<String, String> recipeCookSteps;
-
+  final Map<String, String> recipeCookSteps;
 
   const RecipeIngredientsPage({
     super.key,
@@ -45,21 +44,22 @@ class RecipeIngredientsPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
 
-            // Список ингредиентов
             Expanded(
-              child: ListView(
-                children: recipeIngredients.entries.map((entry) {
+              child: ListView.builder(
+                itemCount: recipeIngredients.length,
+                itemBuilder: (context, index) {
+                  final ingredient = recipeIngredients.entries.elementAt(index);
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: RecipeIngredientList(
-                      recipeIngredientName: entry.key,
-                      recipeIngredientQuantity: entry.value,
+                      recipeIngredientName: ingredient.key,
+                      recipeIngredientQuantity: ingredient.value,
+                      showCheckbox: true,
                     ),
                   );
-                }).toList(),
+                },
               ),
             ),
-            // Конец списка ингредиентов
 
             const SizedBox(height: 20),
             Center(

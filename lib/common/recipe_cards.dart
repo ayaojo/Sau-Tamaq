@@ -61,34 +61,39 @@ class _RecipeCardsState extends State<RecipeCards> {
                 children: [
                   Row(
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(Icons.access_time_outlined,
-                                  color: Colors.white70, size: 12),
-                              const SizedBox(width: 4.0),
-                              Text(
-                                '${item.recipeCardTime} мин',
-                                style: const TextStyle(
-                                    color: Colors.white70,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 10),
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 5.0),
-                          Text(
-                            item.recipeCardTitle,
-                            style: const TextStyle(
-                              color: Color(0xFFFEFEFE),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.access_time_outlined,
+                                    color: Colors.white70, size: 12),
+                                const SizedBox(width: 4.0),
+                                Text(
+                                  '${item.recipeCardTime} мин',
+                                  style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                )
+                              ],
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 5.0),
+                            Text(
+                              item.recipeCardTitle,
+                              style: const TextStyle(
+                                color: Color(0xFFFEFEFE),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              
+                              maxLines: 5,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

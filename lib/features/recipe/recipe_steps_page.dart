@@ -7,11 +7,12 @@ class RecipeStepsPage extends StatelessWidget {
   final String recipeCardImg;
   final Map<String, String> recipeCookSteps;
 
-  const RecipeStepsPage(
-      {super.key,
-      required this.recipeCardTitle,
-      required this.recipeCardImg,
-      required this.recipeCookSteps});
+  const RecipeStepsPage({
+    super.key,
+    required this.recipeCardTitle,
+    required this.recipeCardImg,
+    required this.recipeCookSteps,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +40,22 @@ class RecipeStepsPage extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 10),
-
-            // Инструкция
             Expanded(
-              child: ListView(
-                children: recipeCookSteps.entries.map((entry) {
+              child: ListView.builder(
+                itemCount: recipeCookSteps.length,
+                itemBuilder: (context, index) {
+                  final step = recipeCookSteps.entries.elementAt(index);
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: RecipeStepList(
-                      recipeStepNum: entry.key,
-                      recipeStepDescription: entry.value,
+                      recipeStepNum: step.key,
+                      recipeStepDescription: step.value,
+                      showCheckbox: true,
                     ),
                   );
-                }).toList(),
+                },
               ),
             ),
-            // Конец инструкции
-
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
