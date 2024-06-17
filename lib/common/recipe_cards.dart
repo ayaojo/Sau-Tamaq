@@ -88,7 +88,6 @@ class _RecipeCardsState extends State<RecipeCards> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               ),
-                              
                               maxLines: 5,
                               overflow: TextOverflow.ellipsis,
                             ),

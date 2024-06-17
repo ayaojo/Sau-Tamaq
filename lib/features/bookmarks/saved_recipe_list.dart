@@ -12,7 +12,7 @@ class SavedRecipeList extends StatelessWidget {
     return Column(
       children: [
         RecipeCards(
-            items: allRecepies
+            items: allRecipes
                 .where((element) => element.isBookmark == true)
                 .toList(),
             savedRecipes: savedRecipes),

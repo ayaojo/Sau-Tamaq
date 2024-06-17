@@ -3,7 +3,7 @@ import 'package:sau_tamaq_flutter/common/custom_checkbox.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
 import 'package:sau_tamaq_flutter/features/recipe/recipe_ingredients_page.dart';
 
-class RecipeInfo extends StatelessWidget {
+class RecipeInfo extends StatefulWidget {
   final String recipeCardTitle;
   final String recipeCardTime;
   final String recipeCardImg;
@@ -24,7 +24,35 @@ class RecipeInfo extends StatelessWidget {
   });
 
   @override
+  State<RecipeInfo> createState() => _RecipeInfoState();
+}
+
+class _RecipeInfoState extends State<RecipeInfo> {
+  int servings = 1;
+
+  Map<String, String> _scaleIngredients(
+      Map<String, String> ingredients, int scale) {
+    return ingredients.map((key, value) {
+      final quantity = _parseQuantity(value);
+      final scaledQuantity = quantity * scale;
+      return MapEntry(key, _formatQuantity(scaledQuantity, value));
+    });
+  }
+
+  double _parseQuantity(String quantity) {
+    final match = RegExp(r'(\d+(\.\d+)?)').firstMatch(quantity);
+    return match != null ? double.parse(match[0]!) : 1.0;
+  }
+
+  String _formatQuantity(double quantity, String original) {
+    return original.replaceFirst(RegExp(r'(\d+(\.\d+)?)'), quantity.toString());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final scaledIngredients =
+        _scaleIngredients(widget.recipeIngredients, servings);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -40,8 +68,8 @@ class RecipeInfo extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: RecipeImageBlock(
-              recipeImage: recipeCardImg,
-              recipeName: recipeCardTitle,
+              recipeImage: widget.recipeCardImg,
+              recipeName: widget.recipeCardTitle,
             ),
           ),
           const SizedBox(height: 15.0),
@@ -59,17 +87,17 @@ class RecipeInfo extends StatelessWidget {
                 children: [
                   RecipeInfoWidget(
                     widgetIcon: Icons.local_fire_department,
-                    mainText: recipeCalories,
+                    mainText: widget.recipeCalories,
                     subText: 'Калории',
                   ),
                   RecipeInfoWidget(
                     widgetIcon: Icons.access_time_filled,
-                    mainText: '$recipeCardTime мин',
+                    mainText: '${widget.recipeCardTime} мин',
                     subText: 'Время',
                   ),
                   RecipeInfoWidget(
                     widgetIcon: Icons.star_rounded,
-                    mainText: recipeLevel,
+                    mainText: widget.recipeLevel,
                     subText: 'Сложность',
                   )
                 ],
@@ -77,18 +105,32 @@ class RecipeInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 35.0),
-          Container(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: const DropdownMenu(
-              label: Text('Порция'),
-              width: 140.0,
-              dropdownMenuEntries: [
-                DropdownMenuEntry(value: 1, label: '1'),
-                DropdownMenuEntry(value: 2, label: '2'),
-                DropdownMenuEntry(value: 3, label: '3'),
-                DropdownMenuEntry(value: 4, label: '4'),
-                DropdownMenuEntry(value: 5, label: '5'),
-              ],
+            child: DropdownButtonFormField<int>(
+              value: servings,
+              decoration: InputDecoration(
+                labelText: 'Порция',
+                labelStyle: const TextStyle(color: Color(0xFF1D3557)),
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0xFF1D3557)),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+              dropdownColor: Colors.white,
+              items: List.generate(5, (index) => index + 1)
+                  .map((value) => DropdownMenuItem<int>(
+                        value: value,
+                        child: Text('$value'),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  servings = value!;
+                });
+              },
             ),
           ),
           Expanded(
@@ -105,7 +147,7 @@ class RecipeInfo extends StatelessWidget {
                     ),
                   ),
                 ),
-                ...recipeIngredients.entries.map((ingredient) {
+                ...scaledIngredients.entries.map((ingredient) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 4.0),
@@ -126,7 +168,7 @@ class RecipeInfo extends StatelessWidget {
                     ),
                   ),
                 ),
-                ...recipeCookSteps.entries.map((step) {
+                ...widget.recipeCookSteps.entries.map((step) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 6.0),
@@ -146,10 +188,10 @@ class RecipeInfo extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => RecipeIngredientsPage(
-                      recipeCardTitle: recipeCardTitle,
-                      recipeCardImg: recipeCardImg,
-                      recipeIngredients: recipeIngredients,
-                      recipeCookSteps: recipeCookSteps,
+                      recipeCardTitle: widget.recipeCardTitle,
+                      recipeCardImg: widget.recipeCardImg,
+                      recipeIngredients: widget.recipeIngredients,
+                      recipeCookSteps: widget.recipeCookSteps,
                     ),
                   ),
                 );

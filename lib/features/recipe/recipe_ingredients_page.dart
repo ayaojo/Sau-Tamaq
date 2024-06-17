@@ -38,6 +38,7 @@ class RecipeIngredientsPage extends StatelessWidget {
               recipeImage: recipeCardImg,
               recipeName: recipeCardTitle,
             ),
+            const SizedBox(height: 12),
             const Text(
               'Пожалуйста, подготовьте ингредиенты перед началом приготовления',
               style: TextStyle(fontSize: 16),
