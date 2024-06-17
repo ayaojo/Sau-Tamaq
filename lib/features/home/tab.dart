@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/choice_chips.dart';
 import 'package:sau_tamaq_flutter/common/recipe_cards.dart';
 
+import '../search/page.dart';
+
 var allRecipes = [
   RecipeCard('Завтрак 1', '12', 'assets/recipe_photos/11.png', false, "завтрак",
       'Easy', '1200', {
@@ -235,6 +237,7 @@ var allRecipes = [
 ];
 
 class HomeTab extends StatelessWidget {
+
   const HomeTab({super.key});
 
   @override
@@ -252,7 +255,10 @@ class HomeTab extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              
+              showSearch(
+                context: context,
+                delegate: SearchTab(allRecipes),
+              );
             },
           ),
         ],
