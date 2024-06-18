@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:sau_tamaq_flutter/common/custom_checkbox.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
 import 'package:sau_tamaq_flutter/features/recipe/recipe_ingredients_page.dart';
+
 
 class RecipeInfo extends StatefulWidget {
   final String recipeCardTitle;
@@ -86,19 +89,22 @@ class _RecipeInfoState extends State<RecipeInfo> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   RecipeInfoWidget(
-                    widgetIcon: Icons.local_fire_department,
+                    widgetIcon: FontAwesomeIcons.fireFlameCurved,
                     mainText: widget.recipeCalories,
                     subText: 'Калории',
+                    iconColor: const Color(0xffFD3250),
                   ),
                   RecipeInfoWidget(
-                    widgetIcon: Icons.access_time_filled,
+                    widgetIcon: Icons.access_time_filled_sharp,
                     mainText: '${widget.recipeCardTime} мин',
                     subText: 'Время',
+                    iconColor: const Color(0xffFFAC33),
                   ),
                   RecipeInfoWidget(
-                    widgetIcon: Icons.star_rounded,
+                    widgetIcon: FontAwesomeIcons.dumbbell,
                     mainText: widget.recipeLevel,
                     subText: 'Сложность',
+                    iconColor: const Color(0xff007F87),
                   )
                 ],
               ),
@@ -181,26 +187,29 @@ class _RecipeInfoState extends State<RecipeInfo> {
               ],
             ),
           ),
-          SafeArea(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RecipeIngredientsPage(
-                      recipeCardTitle: widget.recipeCardTitle,
-                      recipeCardImg: widget.recipeCardImg,
-                      recipeIngredients: widget.recipeIngredients,
-                      recipeCookSteps: widget.recipeCookSteps,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: SafeArea(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RecipeIngredientsPage(
+                        recipeCardTitle: widget.recipeCardTitle,
+                        recipeCardImg: widget.recipeCardImg,
+                        recipeIngredients: widget.recipeIngredients,
+                        recipeCookSteps: widget.recipeCookSteps,
+                      ),
                     ),
-                  ),
-                );
-              },
-              child: const Text(
-                'Начнём готовить',
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+                  );
+                },
+                child: const Text(
+                  'Начнём готовить',
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
@@ -214,19 +223,26 @@ class RecipeInfoWidget extends StatelessWidget {
   final IconData widgetIcon;
   final String mainText;
   final String subText;
+  final Color iconColor;
 
   const RecipeInfoWidget({
     super.key,
     required this.widgetIcon,
     required this.mainText,
     required this.subText,
+    required this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(widgetIcon),
+        IconTheme(
+            data: IconThemeData(color: iconColor),
+            child: Icon(
+              widgetIcon,
+              size: 25,
+            )),
         const SizedBox(height: 8.0),
         Text(
           mainText,
@@ -271,12 +287,20 @@ class RecipeIngredientList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(recipeIngredientName,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          Expanded(
+            child: Text(recipeIngredientName,
+                maxLines: 10,
+                overflow: TextOverflow.ellipsis,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+          ),
+          const SizedBox(width: 14.0),
           Text(recipeIngredientQuantity,
               style: const TextStyle(fontSize: 12, color: Color(0xff7E7E7E))),
-          if (showCheckbox) const CustomCheckbox(),
+          if (showCheckbox) ...[
+            const SizedBox(width: 14.0),
+            const CustomCheckbox(),
+          ],
         ],
       ),
     );

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/choice_chips.dart';
 import 'package:sau_tamaq_flutter/common/recipe_cards.dart';
+import 'package:sau_tamaq_flutter/features/recipe/all_recipe_page.dart';
 
 import '../search/page.dart';
 
 var allRecipes = [
-  RecipeCard('Завтрак 1', '12', 'assets/recipe_photos/11.png', false, "завтрак",
+  RecipeCard('Бутерброд с вареным яйцом', '12', 'assets/recipe_photos/11.png', false, "завтрак",
       'Easy', '1200', {
     'Яйцо': '6 штук',
     'Майонез': '1/4 чашки',
@@ -237,7 +238,6 @@ var allRecipes = [
 ];
 
 class HomeTab extends StatelessWidget {
-
   const HomeTab({super.key});
 
   @override
@@ -254,6 +254,7 @@ class HomeTab extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
+            tooltip: 'Искать',
             onPressed: () {
               showSearch(
                 context: context,
@@ -309,7 +310,13 @@ class HomeTab extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    print("it's work");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            AllRecipesPage(allRecipes: allRecipes),
+                      ),
+                    );
                   },
                   child: const Text(
                     'все',

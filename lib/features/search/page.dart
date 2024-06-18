@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/recipe_cards.dart';
+import 'package:sau_tamaq_flutter/features/recipe/recipe_info.dart';
 
 class SearchTab extends SearchDelegate<RecipeCard?> {
   final List<RecipeCard> allRecipes;
@@ -13,7 +14,7 @@ class SearchTab extends SearchDelegate<RecipeCard?> {
         onPressed: () {
           query = '';
         },
-        icon: const Icon(Icons.clear_rounded),
+        icon: const Icon(Icons.clear_rounded), tooltip: 'Очистить',
       ),
     ];
   }
@@ -21,6 +22,7 @@ class SearchTab extends SearchDelegate<RecipeCard?> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
+      tooltip: 'Назад',
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
         close(context, null);
@@ -43,7 +45,20 @@ class SearchTab extends SearchDelegate<RecipeCard?> {
           title: Text(recipe.recipeCardTitle),
           subtitle: Text(recipe.category),
           onTap: () {
-            close(context, recipe);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RecipeInfo(
+                  recipeCardTitle: recipe.recipeCardTitle,
+                  recipeCardImg: recipe.recipeCardImg,
+                  recipeCardTime: recipe.recipeCardTime,
+                  recipeLevel: recipe.recipeLevel,
+                  recipeCalories: recipe.recipeCalories,
+                  recipeIngredients: recipe.recipeIngredients,
+                  recipeCookSteps: recipe.recipeCookSteps,
+                ),
+              ),
+            );
           },
         );
       },

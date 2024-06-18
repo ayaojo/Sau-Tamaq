@@ -58,16 +58,20 @@ class RecipeStepsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/end');
-                },
-                child: const Text(
-                  'Завершить',
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+            Container(
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: SafeArea(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/end');
+                  },
+                  child: const Text(
+                    'Завершить',
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ),

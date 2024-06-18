@@ -44,7 +44,6 @@ class RecipeIngredientsPage extends StatelessWidget {
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 10),
-
             Expanded(
               child: ListView.builder(
                 itemCount: recipeIngredients.length,
@@ -61,27 +60,30 @@ class RecipeIngredientsPage extends StatelessWidget {
                 },
               ),
             ),
-
             const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RecipeStepsPage(
-                        recipeCardTitle: recipeCardTitle,
-                        recipeCardImg: recipeCardImg,
-                        recipeCookSteps: recipeCookSteps,
+            Container(
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              child: SafeArea(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RecipeStepsPage(
+                          recipeCardTitle: recipeCardTitle,
+                          recipeCardImg: recipeCardImg,
+                          recipeCookSteps: recipeCookSteps,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'Дальше',
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                    );
+                  },
+                  child: const Text(
+                    'Дальше',
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ),
