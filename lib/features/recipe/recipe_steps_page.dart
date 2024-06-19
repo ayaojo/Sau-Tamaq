@@ -26,23 +26,25 @@ class RecipeStepsPage extends StatelessWidget {
         backgroundColor: const Color(0xFFFEFEFE),
         surfaceTintColor: const Color(0xFFFEFEFE),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RecipeImageBlock(
-              recipeImage: recipeCardImg,
-              recipeName: recipeCardTitle,
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Выполните следующие действия, чтобы приготовить этот рецепт',
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RecipeImageBlock(
+                recipeImage: recipeCardImg,
+                recipeName: recipeCardTitle,
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'Выполните следующие действия, чтобы приготовить этот рецепт',
+                style: TextStyle(fontSize: 16),
+              ),
+             
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: recipeCookSteps.length,
                 itemBuilder: (context, index) {
                   final step = recipeCookSteps.entries.elementAt(index);
@@ -56,26 +58,25 @@ class RecipeStepsPage extends StatelessWidget {
                   );
                 },
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.symmetric(vertical: 30.0),
-              child: SafeArea(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/end');
-                  },
-                  child: const Text(
-                    'Завершить',
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                child: SafeArea(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/end');
+                    },
+                    child: const Text(
+                      'Завершить',
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

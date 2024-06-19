@@ -5,7 +5,6 @@ import 'package:sau_tamaq_flutter/common/custom_checkbox.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
 import 'package:sau_tamaq_flutter/features/recipe/recipe_ingredients_page.dart';
 
-
 class RecipeInfo extends StatefulWidget {
   final String recipeCardTitle;
   final String recipeCardTime;
@@ -66,82 +65,82 @@ class _RecipeInfoState extends State<RecipeInfo> {
         backgroundColor: const Color(0xFFFEFEFE),
         surfaceTintColor: const Color(0xFFFEFEFE),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: RecipeImageBlock(
-              recipeImage: widget.recipeCardImg,
-              recipeName: widget.recipeCardTitle,
-            ),
-          ),
-          const SizedBox(height: 15.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-              decoration: BoxDecoration(
-                color: const Color(0xFFD2E7FF),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RecipeInfoWidget(
-                    widgetIcon: FontAwesomeIcons.fireFlameCurved,
-                    mainText: widget.recipeCalories,
-                    subText: 'Калории',
-                    iconColor: const Color(0xffFD3250),
-                  ),
-                  RecipeInfoWidget(
-                    widgetIcon: Icons.access_time_filled_sharp,
-                    mainText: '${widget.recipeCardTime} мин',
-                    subText: 'Время',
-                    iconColor: const Color(0xffFFAC33),
-                  ),
-                  RecipeInfoWidget(
-                    widgetIcon: FontAwesomeIcons.dumbbell,
-                    mainText: widget.recipeLevel,
-                    subText: 'Сложность',
-                    iconColor: const Color(0xff007F87),
-                  )
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 35.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: DropdownButtonFormField<int>(
-              value: servings,
-              decoration: InputDecoration(
-                labelText: 'Порция',
-                labelStyle: const TextStyle(color: Color(0xFF1D3557)),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Color(0xFF1D3557)),
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-              dropdownColor: Colors.white,
-              items: List.generate(5, (index) => index + 1)
-                  .map((value) => DropdownMenuItem<int>(
-                        value: value,
-                        child: Text('$value'),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  servings = value!;
-                });
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView(
+          SingleChildScrollView(
+            child: Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: RecipeImageBlock(
+                    recipeImage: widget.recipeCardImg,
+                    recipeName: widget.recipeCardTitle,
+                  ),
+                ),
+                const SizedBox(height: 15.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD2E7FF),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RecipeInfoWidget(
+                          widgetIcon: FontAwesomeIcons.fireFlameCurved,
+                          mainText: widget.recipeCalories,
+                          subText: 'Калории',
+                          iconColor: const Color(0xffFD3250),
+                        ),
+                        RecipeInfoWidget(
+                          widgetIcon: Icons.access_time_filled_sharp,
+                          mainText: '${widget.recipeCardTime} мин',
+                          subText: 'Время',
+                          iconColor: const Color(0xffFFAC33),
+                        ),
+                        RecipeInfoWidget(
+                          widgetIcon: FontAwesomeIcons.dumbbell,
+                          mainText: widget.recipeLevel,
+                          subText: 'Сложность',
+                          iconColor: const Color(0xff007F87),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 35.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: DropdownButtonFormField<int>(
+                    value: servings,
+                    decoration: InputDecoration(
+                      labelText: 'Порция',
+                      labelStyle: const TextStyle(color: Color(0xFF1D3557)),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Color(0xFF1D3557)),
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    dropdownColor: Colors.white,
+                    items: List.generate(5, (index) => index + 1)
+                        .map((value) => DropdownMenuItem<int>(
+                              value: value,
+                              child: Text('$value'),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        servings = value!;
+                      });
+                    },
+                  ),
+                ),
                 const Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 30.0, vertical: 16.0),
@@ -184,31 +183,37 @@ class _RecipeInfoState extends State<RecipeInfo> {
                     ),
                   );
                 }),
+                const SizedBox(height: 80.0),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: SafeArea(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RecipeIngredientsPage(
-                        recipeCardTitle: widget.recipeCardTitle,
-                        recipeCardImg: widget.recipeCardImg,
-                        recipeIngredients: widget.recipeIngredients,
-                        recipeCookSteps: widget.recipeCookSteps,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 30.0),
+              child: SafeArea(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RecipeIngredientsPage(
+                          recipeCardTitle: widget.recipeCardTitle,
+                          recipeCardImg: widget.recipeCardImg,
+                          recipeIngredients: widget.recipeIngredients,
+                          recipeCookSteps: widget.recipeCookSteps,
+                          servings: servings,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'Начнём готовить',
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                    );
+                  },
+                  child: const Text(
+                    'Начнём готовить',
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ),
