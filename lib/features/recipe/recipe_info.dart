@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:sau_tamaq_flutter/common/custom_checkbox.dart';
 import 'package:sau_tamaq_flutter/common/recipe_image_block.dart';
 import 'package:sau_tamaq_flutter/features/recipe/recipe_ingredients_page.dart';
 
@@ -269,7 +267,7 @@ class RecipeInfoWidget extends StatelessWidget {
   }
 }
 
-class RecipeIngredientList extends StatelessWidget {
+class RecipeIngredientList extends StatefulWidget {
   final String recipeIngredientName;
   final String recipeIngredientQuantity;
   final bool showCheckbox;
@@ -282,37 +280,67 @@ class RecipeIngredientList extends StatelessWidget {
   });
 
   @override
+  State<StatefulWidget> createState() => _RecipeIngredientListState();
+}
+
+class _RecipeIngredientListState extends State<RecipeIngredientList> {
+  bool isChecked = false;
+
+  void _toggleCheckBox() {
+    setState(() {
+      isChecked = !isChecked;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: const Color(0xffD2E7FF),
-      ),
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(recipeIngredientName,
-                maxLines: 10,
-                overflow: TextOverflow.ellipsis,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-          ),
-          const SizedBox(width: 14.0),
-          Text(recipeIngredientQuantity,
-              style: const TextStyle(fontSize: 12, color: Color(0xff7E7E7E))),
-          if (showCheckbox) ...[
-            const SizedBox(width: 14.0),
-            const CustomCheckbox(),
+    return GestureDetector(
+      onTap: () {
+        if (widget.showCheckbox) {
+          _toggleCheckBox();
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: isChecked ? const Color(0xff1D3557) : const Color(0xffD2E7FF),
+        ),
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.recipeIngredientName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: isChecked ? Colors.white : Colors.black,
+              ),
+            ),
+            Text(
+              widget.recipeIngredientQuantity,
+              style: TextStyle(
+                fontSize: 12,
+                color: isChecked ? Colors.white70 : Colors.black54,
+              ),
+            ),
+            if (widget.showCheckbox)
+              Checkbox(
+                value: isChecked,
+                onChanged: (value) {
+                  setState(() {
+                    isChecked = value ?? false;
+                  });
+                },
+              ),
           ],
-        ],
+        ),
       ),
     );
   }
 }
 
-class RecipeStepList extends StatelessWidget {
+class RecipeStepList extends StatefulWidget {
   final String recipeStepNum;
   final String recipeStepDescription;
   final bool showCheckbox;
@@ -325,37 +353,68 @@ class RecipeStepList extends StatelessWidget {
   });
 
   @override
+  State<StatefulWidget> createState() => _RecipeStepListState();
+}
+
+class _RecipeStepListState extends State<RecipeStepList> {
+  bool isChecked = false;
+
+  void _toggleCheckBox() {
+    setState(() {
+      isChecked = !isChecked;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: const Color(0xffD2E7FF),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-      child: Row(
-        children: [
-          Text(
-            recipeStepNum,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(
-            child: Text(
-              recipeStepDescription,
+    return GestureDetector(
+      onTap: () {
+        if (widget.showCheckbox) {
+          _toggleCheckBox();
+        } else {
+          // Действие при нажатии на элемент (например, переход к следующему шагу)
+          // Navigator.push...
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: isChecked ? Colors.amber : const Color(0xffD2E7FF),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+        child: Row(
+          children: [
+            Text(
+              widget.recipeStepNum,
               style: const TextStyle(
-                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
-              maxLines: 15,
-              overflow: TextOverflow.ellipsis,
             ),
-          ),
-          if (showCheckbox) const CustomCheckbox(),
-        ],
+            const SizedBox(
+              width: 12,
+            ),
+            Expanded(
+              child: Text(
+                widget.recipeStepDescription,
+                style: const TextStyle(
+                  fontSize: 14,
+                ),
+                maxLines: 15,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            if (widget.showCheckbox)
+              Checkbox(
+                value: isChecked,
+                onChanged: (value) {
+                  setState(() {
+                    isChecked = value ?? false;
+                  });
+                },
+              ),
+          ],
+        ),
       ),
     );
   }

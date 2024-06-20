@@ -48,12 +48,14 @@ class RecipeStepsPage extends StatelessWidget {
                 itemCount: recipeCookSteps.length,
                 itemBuilder: (context, index) {
                   final step = recipeCookSteps.entries.elementAt(index);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: RecipeStepList(
-                      recipeStepNum: step.key,
-                      recipeStepDescription: step.value,
-                      showCheckbox: true,
+                  return GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: RecipeStepList(
+                        recipeStepNum: step.key,
+                        recipeStepDescription: step.value,
+                        showCheckbox: true,
+                      ),
                     ),
                   );
                 },

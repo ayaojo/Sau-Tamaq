@@ -77,12 +77,14 @@ class _RecipeIngredientsPageState extends State<RecipeIngredientsPage> {
                 itemCount: scaledIngredients.length,
                 itemBuilder: (context, index) {
                   final ingredient = scaledIngredients.entries.elementAt(index);
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: RecipeIngredientList(
-                      recipeIngredientName: ingredient.key,
-                      recipeIngredientQuantity: ingredient.value,
-                      showCheckbox: true,
+                  return GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: RecipeIngredientList(
+                        recipeIngredientName: ingredient.key,
+                        recipeIngredientQuantity: ingredient.value,
+                        showCheckbox: true,
+                      ),
                     ),
                   );
                 },

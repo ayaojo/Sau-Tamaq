@@ -3,7 +3,7 @@ import 'package:sau_tamaq_flutter/common/recipe_cards.dart';
 import 'package:sau_tamaq_flutter/features/bookmarks/saved_recipe_list.dart';
 import 'package:sau_tamaq_flutter/features/bookmarks/tab.dart';
 import 'package:sau_tamaq_flutter/features/home/tab.dart';
-import 'package:unicons/unicons.dart';
+import 'package:sau_tamaq_flutter/features/root/ui/bottom_bar.dart';
 
 class RootPage extends StatelessWidget {
   const RootPage({super.key});
@@ -22,49 +22,9 @@ class RootPage extends StatelessWidget {
                   savedRecipeList: SavedRecipeList(savedRecipes: savedRecipes)),
               const Text('data3'),
             ]),
-        bottomNavigationBar: const _BottomNav(),
+        bottomNavigationBar: const BottomNav(),
       ),
     );
   }
 }
 
-class _BottomNav extends StatefulWidget {
-  const _BottomNav();
-
-  @override
-  State<_BottomNav> createState() => _BottomNavState();
-}
-
-class _BottomNavState extends State<_BottomNav> {
-  int currentIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: currentIndex,
-      backgroundColor: const Color(0xFF1D3557),
-      onTap: (value) {
-        DefaultTabController.of(context).animateTo(value);
-        setState(() {
-          currentIndex = value;
-        });
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(UniconsLine.home_alt),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark_outline),
-          activeIcon: Icon(Icons.bookmark),
-          label: 'Saved',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(UniconsLine.user),
-          label: 'Account',
-        )
-      ],
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.grey,
-    );
-  }
-}

@@ -43,6 +43,7 @@ class BonAppetitPage extends StatelessWidget {
                 },
                 child: const Text(
                   'Спасибо!',
+                  style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
