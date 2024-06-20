@@ -11,6 +11,7 @@ class AllRecipesPage extends StatelessWidget {
     ValueNotifier<List<RecipeCard>> savedRecipes = ValueNotifier([]);
 
     return Scaffold(
+      backgroundColor: const Color(0xFFFEFEFE),
       appBar: AppBar(
         title: const Text('Все рецепты'),
         backgroundColor: const Color(0xFFFEFEFE),
