@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/light_theme.dart';
 import 'package:sau_tamaq_flutter/features/init/bon_appetit_page.dart';
-import 'package:sau_tamaq_flutter/features/login/page.dart';
+import 'package:sau_tamaq_flutter/features/login/log_in.dart';
 import 'package:sau_tamaq_flutter/features/root/page.dart';
 
 //import 'features/init/page.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Sau Tamaq',
       theme: lightTheme,
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) => const LogIn(),
         '/root': (context) => const RootPage(),  
         '/end': (context) => const BonAppetitPage(),
       },
