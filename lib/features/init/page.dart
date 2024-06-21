@@ -35,7 +35,7 @@ class InitPage extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/root');
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
               ),
             ),
