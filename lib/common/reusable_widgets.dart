@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 FloatingActionButton backBtn(BuildContext context) {
   return FloatingActionButton(
     onPressed: () {
-      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, '/');
     },
     backgroundColor: const Color(0xffE94D01),
     foregroundColor: Colors.white,

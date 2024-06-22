@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BonAppetitPage extends StatelessWidget {
   const BonAppetitPage({super.key});
@@ -30,7 +31,6 @@ class BonAppetitPage extends StatelessWidget {
                 'Приятного аппетита!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-
                   fontWeight: FontWeight.bold,
                   color: Color(0xff1D3557),
                   fontSize: 35,
@@ -41,9 +41,12 @@ class BonAppetitPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/root');
                 },
-                child: const Text(
+                child: Text(
                   'Спасибо!',
-                  style: TextStyle(fontSize: 18),
+                  style: GoogleFonts.nunito(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

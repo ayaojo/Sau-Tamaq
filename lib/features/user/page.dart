@@ -1,21 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class UserPage extends StatelessWidget {
+class UserPage extends StatefulWidget {
   const UserPage({super.key});
+
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut().then((value) {
-              print('user sign out');
-              Navigator.pushReplacementNamed(context, '/login');
-            });
-          },
-          child: const Text('log out'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Hello ${user.email}'),
+            const SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  print('user sign out');
+                  Navigator.pushReplacementNamed(context, '/login');
+                });
+              },
+              child: const Text('log out'),
+            ),
+          ],
         ),
       ),
     );

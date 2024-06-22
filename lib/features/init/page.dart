@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sau_tamaq_flutter/features/new_autht/main_page.dart';
 
 class InitPage extends StatelessWidget {
   const InitPage({super.key});
@@ -28,14 +30,21 @@ class InitPage extends StatelessWidget {
             const Spacer(),
             SafeArea(
               child: ElevatedButton(
-                child: const Text(
+                child: Text(
                   'Давайте начнем!',
+                  style: GoogleFonts.nunito(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/login');
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MainPage()),
+                  );
                 },
               ),
             ),

@@ -1,17 +1,34 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sau_tamaq_flutter/common/reusable_widgets.dart';
+import 'package:sau_tamaq_flutter/features/authentication/reset_password_page.dart';
 
 class LogInPage extends StatefulWidget {
-  const LogInPage({super.key});
+  final VoidCallback showRegisterTab;
+
+  const LogInPage({super.key, required this.showRegisterTab});
 
   @override
   State<LogInPage> createState() => _LogInPageState();
 }
 
 class _LogInPageState extends State<LogInPage> {
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,30 +64,13 @@ class _LogInPageState extends State<LogInPage> {
                   const SizedBox(height: 10),
                   forgetPassword(context),
                   const SizedBox(height: 20),
-                  customButton(context, true, () {
-                    FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text)
-                        .then((value) {
-                      Navigator.pushReplacementNamed(context, '/root');
-                    }).onError((error, stackTrace) {
-                      print('error ${error.toString()}');
-                    });
-                  }),
+                  customButton(context, true, signIn),
                   signUpOption(),
                 ],
               ),
             ),
           ),
         ),
-        // Align(
-        //   alignment: Alignment.topLeft,
-        //   child: Opacity(
-        //     opacity: 0.45,
-        //     child: SvgPicture.asset('assets/images/Ornament.svg'),
-        //   ),
-        // ),
       ),
     );
   }
@@ -80,11 +80,9 @@ class _LogInPageState extends State<LogInPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         accountSubTextStyle('Не зарегистрированы?'),
-        const SizedBox(width: 8.0),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushReplacementNamed(context, '/signup');
-          },
+        const SizedBox(width: 3.0),
+        TextButton(
+          onPressed: widget.showRegisterTab,
           child: const Text(
             'Регистрация',
             style: TextStyle(
@@ -102,10 +100,12 @@ class _LogInPageState extends State<LogInPage> {
       alignment: Alignment.bottomRight,
       child: TextButton(
         onPressed: () {
-          Navigator.pushReplacementNamed(context, '/reset_password');
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const ResetPasswordPage();
+          } ));
         },
         child: const Text(
-          "Forgot Password?",
+          "Забыли пароль?",
           style: TextStyle(color: Colors.grey),
           textAlign: TextAlign.right,
         ),
