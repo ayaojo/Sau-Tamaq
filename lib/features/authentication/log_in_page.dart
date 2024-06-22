@@ -17,10 +17,19 @@ class _LogInPageState extends State<LogInPage> {
   final _emailController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      if (mounted) {
+        showSnackBar(context, "Вход выполнен успешно");
+      }
+    } on FirebaseAuthException catch (e) {
+      if (mounted) {
+        showSnackBar(context, e.message ?? "Произошла ошибка");
+      }
+    }
   }
 
   @override
@@ -64,7 +73,7 @@ class _LogInPageState extends State<LogInPage> {
                   const SizedBox(height: 10),
                   forgetPassword(context),
                   const SizedBox(height: 20),
-                  customButton(context, true, signIn),
+                  customButton(context, 'Войти', signIn),
                   signUpOption(),
                 ],
               ),
@@ -102,7 +111,7 @@ class _LogInPageState extends State<LogInPage> {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const ResetPasswordPage();
-          } ));
+          }));
         },
         child: const Text(
           "Забыли пароль?",

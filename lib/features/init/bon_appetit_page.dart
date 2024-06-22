@@ -27,14 +27,15 @@ class BonAppetitPage extends StatelessWidget {
                 ),
               ),
               const Spacer(flex: 1),
-              const Text(
+              Text(
                 'Приятного аппетита!',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: GoogleFonts.nunito(
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff1D3557),
-                  fontSize: 35,
+                  fontSize: 40,
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               const Spacer(flex: 1),
               ElevatedButton(

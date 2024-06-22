@@ -20,25 +20,24 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Future passwordReset() async {
     try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: _emailController.text.trim());
-          showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            content: Text('Password reset email sent successfully'),
-          );
-        },
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: _emailController.text.trim(),
       );
+      if (mounted) {
+        showSnackBar(
+            context, "На вашу почту отправлено письмо для сброса пароля");
+      }
     } on FirebaseAuthException catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(e.message.toString()),
-          );
-        },
-      );
+      if (mounted) {
+        showSnackBar(
+            context,
+            e.message ??
+                "Произошла ошибка при отправке письма для сброса пароля");
+      }
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(context, "Произошла ошибка: ${e.toString()}");
+      }
     }
   }
 
@@ -71,23 +70,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   const SizedBox(height: 30.0),
                   textFieldForm('Почта', Icons.email, false, _emailController),
                   const SizedBox(height: 20),
-                  MaterialButton(
-                    onPressed: passwordReset,
-                    color: Colors.deepPurple[200],
-                    child: const Text('Сброс пароля'),
-                  )
-                  // ElevatedButton(
-                  //   onPressed: () async {
-                  //     await FirebaseAuth.instance
-                  //         .sendPasswordResetEmail(email: _emailController.text)
-                  //         .then((value) {
-                  //       showSnackBar(context, "send reset password email");
-                  //     }).onError((error, stackTrace) {
-                  //       showSnackBar(context, error.toString());
-                  //     });
-                  //   },
-                  //   child: const Text('Сброс пароля'),
-                  // )
+                  customButton(context, 'Сброс', passwordReset),
                 ],
               ),
             ),

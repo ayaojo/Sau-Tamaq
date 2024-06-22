@@ -18,10 +18,23 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future signUp() async {
     if (passwordConfirmed()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        if (mounted) {
+          showSnackBar(context, "Аккаунт успешно создан");
+        }
+      } on FirebaseAuthException catch (e) {
+        if (mounted) {
+          showSnackBar(context, e.message ?? "Произошла ошибка");
+        }
+      }
+    } else {
+      if (mounted) {
+        showSnackBar(context, "Пароли не совпадают");
+      }
     }
   }
 
@@ -76,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   textFieldForm(
                       'Пароль', Icons.lock, true, _confirmPasswordController),
                   const SizedBox(height: 20),
-                  customButton(context, false, signUp),
+                  customButton(context, 'Зарегистрироваться', signUp),
                   logInOption(),
                 ],
               ),

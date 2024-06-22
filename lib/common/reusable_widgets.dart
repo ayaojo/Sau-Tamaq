@@ -62,7 +62,7 @@ TextField textFieldForm(String text, IconData icon, bool isPasswordType,
   );
 }
 
-Container customButton(BuildContext context, bool isLogIn, Function onTap) {
+Container customButton(BuildContext context, String isLogIn, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,
@@ -83,7 +83,7 @@ Container customButton(BuildContext context, bool isLogIn, Function onTap) {
           }),
           shape: WidgetStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
-      child: Text(isLogIn ? 'Войти' : 'Зарегистрироваться'),
+      child: Text(isLogIn),
     ),
   );
 }
