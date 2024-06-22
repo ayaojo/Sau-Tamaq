@@ -22,10 +22,7 @@ class _UserPageState extends State<UserPage> {
             const SizedBox(height: 25),
             ElevatedButton(
               onPressed: () {
-                FirebaseAuth.instance.signOut().then((value) {
-                  print('user sign out');
-                  Navigator.pushReplacementNamed(context, '/login');
-                });
+                FirebaseAuth.instance.signOut();
               },
               child: const Text('log out'),
             ),

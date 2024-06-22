@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sau_tamaq_flutter/features/new_autht/main_page.dart';
+import 'package:sau_tamaq_flutter/features/authentication/main_page.dart';
 
 class InitPage extends StatelessWidget {
   const InitPage({super.key});

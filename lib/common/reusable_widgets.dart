@@ -87,3 +87,12 @@ Container customButton(BuildContext context, bool isLogIn, Function onTap) {
     ),
   );
 }
+
+ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
+    BuildContext context, String text) {
+  return ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(text),
+    ),
+  );
+}

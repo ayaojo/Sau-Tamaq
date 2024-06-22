@@ -371,9 +371,6 @@ class _RecipeStepListState extends State<RecipeStepList> {
       onTap: () {
         if (widget.showCheckbox) {
           _toggleCheckBox();
-        } else {
-          // Действие при нажатии на элемент (например, переход к следующему шагу)
-          // Navigator.push...
         }
       },
       child: Container(

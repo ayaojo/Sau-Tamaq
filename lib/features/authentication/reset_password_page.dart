@@ -20,42 +20,27 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   Future passwordReset() async {
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(
-        email: _emailController.text.trim(),
-      );
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Password reset email sent successfully')),
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+          showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Password reset email sent successfully'),
+          );
+        },
       );
     } on FirebaseAuthException catch (e) {
-      if (!mounted) return;
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No user found with this email')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.message}')),
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
       );
     }
   }
-
-  //   Future passwordReset() async {
-  //   try {
-  //     await FirebaseAuth.instance.sendPasswordResetEmail(
-  //       email: _emailController.text.trim()
-  //     );
-  //     print('Password reset email sent successfully');
-  //   } on FirebaseAuthException catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +77,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     child: const Text('Сброс пароля'),
                   )
                   // ElevatedButton(
-                  //   onPressed: passwordReset,
+                  //   onPressed: () async {
+                  //     await FirebaseAuth.instance
+                  //         .sendPasswordResetEmail(email: _emailController.text)
+                  //         .then((value) {
+                  //       showSnackBar(context, "send reset password email");
+                  //     }).onError((error, stackTrace) {
+                  //       showSnackBar(context, error.toString());
+                  //     });
+                  //   },
                   //   child: const Text('Сброс пароля'),
                   // )
                 ],
